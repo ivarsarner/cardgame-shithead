@@ -28,6 +28,7 @@
                     ".jsx"
                 ]
             }
-        ]
+        ],
+        "linebreak-style": 0
     }
 }
