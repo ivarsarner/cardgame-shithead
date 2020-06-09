@@ -1,41 +1,37 @@
 import React, { useState } from 'react';
-import NewGameDialog from './NewGameDialog';
+import { createDeck, createSuit } from '../initGame';
 
-const GameBoard = () => {
-  const [name, setName] = useState('');
-  const [game, setGame] = useState({ isActive: false });
+const createPlayer = () => ({
+    isHuman: true,
+    isTurn: true,
+    name: '',
+    id: 0,
+    cards: {
+      faceDownCards: [],
+      faceUpCards: {
+        firstSlot: [],
+        secondSlot: [],
+        thirdSlot: [],
+      },
+      handCards: [],
+    },
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(name);
-    setGame({ isActive: true });
-  };
 
-  const handleChange = (e) => {
-    setName(e.target.value);
-  };
+const GameBoard = ({ gameState }) => {
 
-  return (
-    <>
-      <header>
-        <h2>This is the GameBoard</h2>
-      </header>
-      {!game.isActive ? (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Name"
-            required
-            onChange={handleChange}
-          />
-          <input type="number" value="2" />
-          <input type="submit" />
-        </form>
-      ) : (
-        <div> GAME IS ON</div>
-      )}
-    </>
-  );
-};
+    let filledArray = new Array(gameState.players).fill('');
+    console.log(filledArray);
+
+    const deck = createDeck();
+
+    return (
+        <div> GAME IS ON
+            {gameState.players}
+            {gameState.name}
+            {deck.map((card) => (<div key={card.id}> {card.suit} : {card.value} </div>))}
+        </div>
+    )
+}
 
 export default GameBoard;
