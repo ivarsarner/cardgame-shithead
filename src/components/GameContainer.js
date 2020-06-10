@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import GameForm from './GameForm';
 import GameBoard from './GameBoard';
@@ -10,7 +10,7 @@ flex-direction: column;
 align-items: center;
 `;
 
-const initialState = { isActive: false, players: 0, name: '' }
+const initialState = { isActive: false, players: 0, name: '' };
 
 const GameContainer = () => {
   const [gameState, dispatch] = useReducer(gameReducer, initialState);
