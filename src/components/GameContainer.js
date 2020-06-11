@@ -4,6 +4,7 @@ import GameForm from './GameForm';
 import GameBoard from './GameBoard';
 import gameReducer from '../reducers/gameReducer';
 
+
 const BoardContainer = styled.div`
 display: flex;
 flex-direction: column;

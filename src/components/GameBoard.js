@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { createDeck } from '../initGame';
+import { ReactSVG } from 'react-svg';
+import card from '../cards/AS.svg';
 
 const GameBoard = ({ gameState }) => {
-  const [deck, setDeck] = useState(createDeck());
   const [players, setPlayers] = useState([]);
-
+  const deck = createDeck();
+  
   const createPlayer = (name, index) => {
     return {
-      isHuman: !!(name && index === 0),
+      isHuman: (name && index === 0),
       isTurn: false,
       name: index === 0 ? name : `CPU Player${index}`,
       id: index,
       cards: {
-        faceDownCards: [deck.splice(-3, 3)],
+        faceDownCards: deck.splice(-3, 3),
         faceUpCards: {
           firstSlot: [deck.pop()],
           secondSlot: [deck.pop()],
           thirdSlot: [deck.pop()],
         },
-        handCards: [deck.splice(-3, 3)],
+        handCards: deck.splice(-3, 3),
       },
     };
   };
@@ -32,36 +34,36 @@ const GameBoard = ({ gameState }) => {
     setPlayers(setUpPlayers);
   }, []);
 
+  console.log(players);
+
 
   return (
     <div>
       {' '}
       GAME IS ON
+      <ReactSVG
+            src={card}
+            onClick={() => console.log('test')}
+          />
       {players.map((player) => (
         <div key={player.name}>
-          {player.name}
-          {' '}
-          +
-          {' '}
-          {player.id}
-          {' '}
-          +
-          {' '}
-          {player.isHuman.toString()}
+          <h2>{player.name}</h2>
+          <div>
+            <div>
+              Face down cards: {player.cards.faceDownCards.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
+            </div>
+            <div>
+              Face up cards: {player.cards.faceUpCards.firstSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
+              {player.cards.faceUpCards.secondSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
+              {player.cards.faceUpCards.thirdSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
+            </div>
+            <div>
+              Cards on hand: {player.cards.handCards.map((card) => <span>{card.value} {card.suit}{''} </span>)}
+            </div>
+          </div>
         </div>
       ))}
-      {gameState.name}
-      {deck.map((card) => (
-        <div key={card.id}>
-          {' '}
-          {card.suit}
-          {' '}
-          :
-          {' '}
-          {card.value}
-          {' '}
-        </div>
-      ))}
+
     </div>
   );
 };
