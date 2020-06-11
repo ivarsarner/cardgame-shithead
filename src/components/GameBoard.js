@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createDeck } from '../initGame';
-import { ReactSVG } from 'react-svg';
-import card from '../cards/AS.svg';
+import SVGRenderer from './SVGRenderer'
+
 
 const GameBoard = ({ gameState }) => {
   const [players, setPlayers] = useState([]);
@@ -41,10 +41,6 @@ const GameBoard = ({ gameState }) => {
     <div>
       {' '}
       GAME IS ON
-      <ReactSVG
-            src={card}
-            onClick={() => console.log('test')}
-          />
       {players.map((player) => (
         <div key={player.name}>
           <h2>{player.name}</h2>
@@ -57,8 +53,8 @@ const GameBoard = ({ gameState }) => {
               {player.cards.faceUpCards.secondSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
               {player.cards.faceUpCards.thirdSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
             </div>
-            <div>
-              Cards on hand: {player.cards.handCards.map((card) => <span>{card.value} {card.suit}{''} </span>)}
+            <div> Cards on hand: {player.cards.handCards.map((card) => <SVGRenderer card={card}/>
+)}
             </div>
           </div>
         </div>
