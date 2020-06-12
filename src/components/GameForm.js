@@ -13,7 +13,7 @@ const GameForm = ({ dispatch }) => {
     setName(e.target.value);
   };
   const handlePlayerChange = (e) => {
-    setGamePlayers(e.target.value);
+    setGamePlayers(parseInt(e.target.value));
   };
 
 

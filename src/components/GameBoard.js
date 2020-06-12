@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { createDeck } from '../initGame';
-import SVGRenderer from './SVGRenderer'
+import SVGRenderer from './SVGRenderer';
+import styled from 'styled-components';
+
+const CardHolder = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 
 const GameBoard = ({ gameState }) => {
   const [players, setPlayers] = useState([]);
+  const [round, setRound] = useState('pre');
   const deck = createDeck();
-  
+  const apa = true;
+
+  console.log(gameState.players);
+
   const createPlayer = (name, index) => {
     return {
       isHuman: (name && index === 0),
@@ -25,41 +35,56 @@ const GameBoard = ({ gameState }) => {
     };
   };
 
-  // to create a listener that re-renders on change of individual players card should we create a
-  // state with referencing objects to each players hand and set a useEffect on that object?
-
   useEffect(() => {
     const setUpPlayers = Array(gameState.players).fill(null)
       .map(($, index) => createPlayer(gameState.name, index));
     setPlayers(setUpPlayers);
   }, []);
 
-  console.log(players);
-
 
   return (
     <div>
       {' '}
       GAME IS ON
-      {players.map((player) => (
-        <div key={player.name}>
-          <h2>{player.name}</h2>
-          <div>
+      {(round === 'pre') ? (
+        players.map((player) => (
+          <div key={player.name}>
+            <h2>{player.name}</h2>
             <div>
-              Face down cards: {player.cards.faceDownCards.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
-            </div>
-            <div>
-              Face up cards: {player.cards.faceUpCards.firstSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
-              {player.cards.faceUpCards.secondSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
-              {player.cards.faceUpCards.thirdSlot.map((card) => <span>{card.value} {card.suit}  {''}</span>)}
-            </div>
-            <div> Cards on hand: {player.cards.handCards.map((card) => <SVGRenderer card={card}/>
-)}
+              <CardHolder>
+                Face down cards: {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} faceDown={apa} />)}
+              </CardHolder>
+              <CardHolder>
+                Face up cards: {player.cards.faceUpCards.firstSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
+                {player.cards.faceUpCards.secondSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
+                {player.cards.faceUpCards.thirdSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
+              </CardHolder>
+              <CardHolder>
+                Cards on hand: {player.cards.handCards.map((card) => <SVGRenderer key={card.id} card={card} />)}
+              </CardHolder>
             </div>
           </div>
-        </div>
-      ))}
-
+        ))
+      ) : (
+          players.map((player) => (
+            <div key={player.name}>
+              <h2>{player.name}</h2>
+              <div>
+                <CardHolder>
+                  Face down cards: {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} faceDown={apa} />)}
+                </CardHolder>
+                <CardHolder>
+                  Face up cards: {player.cards.faceUpCards.firstSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
+                  {player.cards.faceUpCards.secondSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
+                  {player.cards.faceUpCards.thirdSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
+                </CardHolder>
+                <CardHolder>
+                  Cards on hand: {player.cards.handCards.map((card) => <SVGRenderer key={card.id} card={card} />)}
+                </CardHolder>
+              </div>
+            </div>
+          ))
+        )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { ReactSVG } from 'react-svg';
+import styled from 'styled-components';
 import H2 from '../cards/2H.svg';
 import H3 from '../cards/3H.svg';
 import H4 from '../cards/4H.svg';
@@ -39,19 +40,53 @@ import S11 from '../cards/11S.svg';
 import S12 from '../cards/12S.svg';
 import S13 from '../cards/13S.svg';
 import S14 from '../cards/14S.svg';
+import C2 from '../cards/2C.svg';
+import C3 from '../cards/3C.svg';
+import C4 from '../cards/4C.svg';
+import C5 from '../cards/5C.svg';
+import C6 from '../cards/6C.svg';
+import C7 from '../cards/7C.svg';
+import C8 from '../cards/8C.svg';
+import C9 from '../cards/9C.svg';
+import C10 from '../cards/10C.svg';
+import C11 from '../cards/11C.svg';
+import C12 from '../cards/12C.svg';
+import C13 from '../cards/13C.svg';
+import C14 from '../cards/14C.svg';
+import BACKR from '../cards/BACKR.svg';
+import BACKB from '../cards/BACKB.svg';
 
 
+const CardFrame = styled.div`
+  height: 100px;
+`;
 
-const SVGRenderer = ({ card }) => {
-    let cardSVG = card.suit[0].toUpperCase() + card.value; 
-    console.log(cardSVG)
-    console.log(typeof(cardSVG));
-    return (
-        <ReactSVG
-        src={S13}
+const cards = {
+  S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14,
+  H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14,
+  D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D14,
+  C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12, C13, C14,
+  BACKR, BACKB
+}
+
+
+const SVGRenderer = ({ card, faceDown }) => {
+  let cardSVG;
+  console.log('te', faceDown);
+  if (!faceDown) {
+    cardSVG = card.suit[0].toUpperCase() + card.value;
+  } else {
+    cardSVG = 'BACKR';
+  }
+  console.log(cardSVG);
+  return (
+    <CardFrame>
+      <ReactSVG
+        src={cards[cardSVG]}
         onClick={() => console.log(card)}
       />
-    );
-  };
-  
-  export default SVGRenderer;
+    </CardFrame>
+  );
+};
+
+export default SVGRenderer;
