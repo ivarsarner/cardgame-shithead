@@ -14,7 +14,7 @@ const GameBoard = ({ gameState }) => {
   const [round, setRound] = useState('pre');
   const deck = createDeck();
   const truthyVal = true;
-  console.log(truthyVal);
+  console.log('test', truthyVal);
 
   console.log(gameState.players);
 
