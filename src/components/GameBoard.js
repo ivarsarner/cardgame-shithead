@@ -13,7 +13,8 @@ const GameBoard = ({ gameState }) => {
   const [players, setPlayers] = useState([]);
   const [round, setRound] = useState('pre');
   const deck = createDeck();
-  const apa = true;
+  const truthyVal = true;
+  console.log(truthyVal);
 
   console.log(gameState.players);
 
@@ -52,7 +53,7 @@ const GameBoard = ({ gameState }) => {
             <h2>{player.name}</h2>
             <div>
               <CardHolder>
-                Face down cards: {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} faceDown={apa} />)}
+                Face down cards: {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} faceDown={truthyVal} />)}
               </CardHolder>
               <CardHolder>
                 Face up cards: {player.cards.faceUpCards.firstSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
@@ -71,7 +72,7 @@ const GameBoard = ({ gameState }) => {
               <h2>{player.name}</h2>
               <div>
                 <CardHolder>
-                  Face down cards: {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} faceDown={apa} />)}
+                  Face down cards: {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} faceDown={truthyVal} />)}
                 </CardHolder>
                 <CardHolder>
                   Face up cards: {player.cards.faceUpCards.firstSlot.map((card) => <SVGRenderer key={card.id} card={card} />)}
