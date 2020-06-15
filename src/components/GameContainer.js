@@ -9,6 +9,13 @@ const BoardContainer = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+background-color: green;
+height: 100%;
+`;
+
+const Headline = styled.h1`
+color: white;
+text-shadow: 5px 5px 10px black, 0 0 50px red, 0 0 10px darkred;
 `;
 
 const initialState = { isActive: false, players: 0, name: '' };
@@ -20,7 +27,7 @@ const GameContainer = () => {
     <>
       <BoardContainer>
         <header>
-          <h2>This is the GameBoard</h2>
+          <Headline>Shithead Cardgame</Headline>
         </header>
         {!gameState.isActive ? (
           <GameForm dispatch={dispatch} />

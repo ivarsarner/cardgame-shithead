@@ -70,7 +70,7 @@ const cards = {
 }
 
 
-const SVGRenderer = ({ card, faceDown, playerInfo }) => {
+const PreRound = ({ card, faceDown, playerInfo }) => {
   let cardSVG;
   if (!faceDown) {
     cardSVG = card.suit[0].toUpperCase() + card.value;
@@ -80,23 +80,17 @@ const SVGRenderer = ({ card, faceDown, playerInfo }) => {
   console.log(cardSVG);
   return (
     <CardFrame>
-      {playerInfo ? (
-        <ReactSVG
-          src={cards[cardSVG]}
-          onClick={() => {
-            if (playerInfo.isHuman) {
-              console.log(card, playerInfo);
-            }
-          }}
-        />
-      ) : (
-          <ReactSVG
-            src={cards[cardSVG]}
-          />
-        )
-      }
+      <ReactSVG
+        src={cards[cardSVG]}
+        onClick={() => { 
+          if(playerInfo.isHuman) {
+            playerInfo.cards.faceUpCards.firstSlot.push(card);
+            console.log(card, playerInfo);
+          }
+        }}
+      />
     </CardFrame>
   );
 };
 
-export default SVGRenderer;
+export default PreRound;
