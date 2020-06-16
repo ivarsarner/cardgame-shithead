@@ -70,7 +70,7 @@ const cards = {
 }
 
 
-const SVGRenderer = ({ card, faceDown, playerInfo }) => {
+const SVGRenderer = ({ card, faceDown, playerInfo, hand }) => {
   let cardSVG;
   if (!faceDown) {
     cardSVG = card.suit[0].toUpperCase() + card.value;
@@ -85,7 +85,9 @@ const SVGRenderer = ({ card, faceDown, playerInfo }) => {
           src={cards[cardSVG]}
           onClick={() => {
             if (playerInfo.isHuman) {
-              console.log(card, playerInfo);
+              if (playerInfo.cards.handCards.length > 0 && hand === 'hand') {
+                console.log(card, playerInfo);
+              }
             }
           }}
         />

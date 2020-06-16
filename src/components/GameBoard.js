@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { createDeck } from '../initGame';
 import SVGRenderer from './SVGRenderer';
 import PreRound from './PreRound';
 import styled from 'styled-components';
+import playCardReducer from '../reducers/playCardReducer';
+
 
 const CardHolder = styled.div`
   display: flex;
@@ -21,10 +23,15 @@ text-shadow: 5px 5px 10px black, 0 0 50px red, 0 0 10px darkred;
 
 
 const GameBoard = ({ gameState }) => {
-  const [players, setPlayers] = useState([]);
-  const [round, setRound] = useState('');
   const deck = createDeck();
   const openCard = [];
+  const [players, setPlayers] = useState([]);
+  const [round, setRound] = useState('');
+  // const [initState, setInitState] = useState({});
+  const initState = {players, deck, openCard};
+  const [dunno, dispatch] = useReducer(playCardReducer, initState);
+  console.log(initState);
+
 
   const createPlayer = (name, index) => {
     return {
@@ -49,6 +56,8 @@ const GameBoard = ({ gameState }) => {
     const initPlayers = Array(gameState.players).fill(null)
       .map(($, index) => createPlayer(gameState.name, index));
     setPlayers(initPlayers);
+    // setInitState({initPlayers, deck, openCard});
+
   }, []);
 
 
@@ -60,15 +69,15 @@ const GameBoard = ({ gameState }) => {
           <PlayerName>{player.name}</PlayerName>
           <div>
             <CardHolder>
-              {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} faceDown={true} />)}
+              {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} hand={'final'} faceDown={true} />)}
             </CardHolder>
             <CardHolder>
-              {player.cards.faceUpCards.firstSlot.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} />)}
-              {player.cards.faceUpCards.secondSlot.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} />)}
-              {player.cards.faceUpCards.thirdSlot.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} />)}
+              {player.cards.faceUpCards.firstSlot.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} hand={'mid'} />)}
+              {player.cards.faceUpCards.secondSlot.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} hand={'mid'} />)}
+              {player.cards.faceUpCards.thirdSlot.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} hand={'mid'} />)}
             </CardHolder>
             <CardHolder>
-              {player.cards.handCards.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} />)}
+              {player.cards.handCards.map((card) => <SVGRenderer key={card.id} card={card} playerInfo={player} hand={'hand'} />)}
             </CardHolder>
           </div>
         </div>
