@@ -1,5 +1,4 @@
 import React from 'react';
-import { ReactSVG } from 'react-svg';
 import styled from 'styled-components';
 import H2 from '../cards/2H.svg';
 import H3 from '../cards/3H.svg';
@@ -61,6 +60,10 @@ const CardFrame = styled.div`
 
 `;
 
+const CardHolder = styled.img`
+height: 250px;
+`;
+
 const cards = {
   S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14,
   H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14,
@@ -70,7 +73,7 @@ const cards = {
 }
 
 
-const PreRound = ({ card, faceDown, playerInfo }) => {
+const PreRound = ({ card, faceDown, playerInfo, hand }) => {
   let cardSVG;
   if (!faceDown) {
     cardSVG = card.suit[0].toUpperCase() + card.value;
@@ -80,15 +83,21 @@ const PreRound = ({ card, faceDown, playerInfo }) => {
   console.log(cardSVG);
   return (
     <CardFrame>
-      <ReactSVG
-        src={cards[cardSVG]}
-        onClick={() => { 
-          if(playerInfo.isHuman) {
-            playerInfo.cards.faceUpCards.firstSlot.push(card);
+      {playerInfo ? (
+      <CardHolder src={cards[cardSVG]} onClick={ () => {
+        if (playerInfo.isHuman) {
+          if (playerInfo.cards.handCards.length > 0 && hand === 'hand') {
             console.log(card, playerInfo);
           }
-        }}
-      />
+        }
+      }}
+      /> 
+      ) : (
+          <CardHolder
+            src={cards[cardSVG]}
+          />
+        )
+      }
     </CardFrame>
   );
 };

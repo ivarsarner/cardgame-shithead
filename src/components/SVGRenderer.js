@@ -1,5 +1,4 @@
 import React from 'react';
-import { ReactSVG } from 'react-svg';
 import styled from 'styled-components';
 import H2 from '../cards/2H.svg';
 import H3 from '../cards/3H.svg';
@@ -60,6 +59,9 @@ import BACKB from '../cards/BACKB.svg';
 const CardFrame = styled.div`
 
 `;
+const CardHolder = styled.img`
+height: 250px;
+`;
 
 const cards = {
   S2, S3, S4, S5, S6, S7, S8, S9, S10, S11, S12, S13, S14,
@@ -81,18 +83,16 @@ const SVGRenderer = ({ card, faceDown, playerInfo, hand }) => {
   return (
     <CardFrame>
       {playerInfo ? (
-        <ReactSVG
-          src={cards[cardSVG]}
-          onClick={() => {
-            if (playerInfo.isHuman) {
-              if (playerInfo.cards.handCards.length > 0 && hand === 'hand') {
-                console.log(card, playerInfo);
-              }
-            }
-          }}
-        />
+      <CardHolder src={cards[cardSVG]} onClick={ () => {
+        if (playerInfo.isHuman) {
+          if (playerInfo.cards.handCards.length > 0 && hand === 'hand') {
+            console.log(card, playerInfo);
+          }
+        }
+      }}
+      />
       ) : (
-          <ReactSVG
+          <CardHolder
             src={cards[cardSVG]}
           />
         )
