@@ -32,7 +32,7 @@ const GameBoard = ({ gameState }) => {
   const [dunno, dispatch] = useReducer(playCardReducer, initState);
   console.log(initState);
 
-
+ç
   const createPlayer = (name, index) => {
     return {
       isHuman: (name && index === 0),

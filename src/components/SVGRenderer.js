@@ -60,7 +60,7 @@ const CardFrame = styled.div`
 
 `;
 const CardHolder = styled.img`
-height: 250px;
+height: 200px;
 `;
 
 const cards = {
