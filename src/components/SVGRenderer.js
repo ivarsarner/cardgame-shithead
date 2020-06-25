@@ -55,13 +55,14 @@ import C14 from '../cards/14C.svg';
 import BACKR from '../cards/BACKR.svg';
 import BACKB from '../cards/BACKB.svg';
 import JOKER1 from '../cards/JOKER1.svg';
+import JOKER2 from '../cards/JOKER2.svg';
 
 
 const CardFrame = styled.div`
 
 `;
 const CardHolder = styled.img`
-height: 170px;
+height: 180px;
 `;
 
 const cards = {
@@ -69,7 +70,7 @@ const cards = {
   H2, H3, H4, H5, H6, H7, H8, H9, H10, H11, H12, H13, H14,
   D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12, D13, D14,
   C2, C3, C4, C5, C6, C7, C8, C9, C10, C11, C12, C13, C14,
-  BACKR, BACKB, JOKER1
+  BACKR, BACKB, JOKER1, JOKER2
 }
 
 

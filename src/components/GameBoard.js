@@ -14,7 +14,7 @@ const CardHolder = styled.div`
 const MidHolder = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: -150px;
+  margin-top: -160px;
   `;
 
 const PlayerName = styled.h2`
