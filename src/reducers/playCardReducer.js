@@ -1,10 +1,6 @@
 const playCardReducer = (state, action) => {
-    switch (action.type) {
-      case 'START_GAME':
-        return { isActive: true, players: action.payload.players, name: action.payload.name };
-      default:
-        return state;
-    }
+  console.log('dispatch motherfucka');
+  console.log(action.payload);
   };
   
   export default playCardReducer;
