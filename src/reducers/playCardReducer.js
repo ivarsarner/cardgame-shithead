@@ -1,5 +1,5 @@
 const playCardReducer = (state, action) => {
-  console.log('dispatch motherfucka');
+  console.log('dispatch');
   console.log(action.payload);
   };
   
