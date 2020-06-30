@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import { createDeck } from '../initGame';
-import SVGRenderer from './SVGRenderer';
-import PreRound from './PreRound';
+import GameRound from './GameRound';
 import styled from 'styled-components';
-import playCardReducer from '../reducers/playCardReducer';
 
 
 const CardHolder = styled.div`
@@ -29,29 +27,23 @@ text-shadow: 5px 5px 10px black, 0 0 50px red, 0 0 10px darkred;
 
 const GameBoard = ({ gameState }) => {
   const deck = createDeck();
-  const openCard = [];
-  const [players, setPlayers] = useState([]);
-  const [round, setRound] = useState('');
-  // const [initState, setInitState] = useState({});
-  const initState = { players, deck, openCard };
-  const [dunno, dispatch] = useReducer(playCardReducer, initState);
-  console.log(initState);
+  const players = [];
+  const playedCards = [];
 
   const createPlayer = (name, index) => {
     return {
       isHuman: (name && index === 0),
-      isTurn: false,
+      isTurn: (index === 0),
       name: index === 0 ? name : `CPU Player${index}`,
       id: index,
       cards: {
-        faceDownCards : {},
+        faceDownCards: {},
         faceUpCards: {
           firstSlot: [],
           secondSlot: [],
           thirdSlot: [],
         },
-        handCards : {},
-        // startingCards: deck.splice(-6, 6),
+        handCards: {},
       },
     };
   };
@@ -65,54 +57,25 @@ const GameBoard = ({ gameState }) => {
     return cards;
   };
 
-  useEffect(() => {
+  if (players.length == 0) {
     const initPlayers = Array(gameState.players).fill(null)
       .map(($, index) => createPlayer(gameState.name, index));
-    setPlayers(initPlayers);
-    // setInitState({initPlayers, deck, openCard});
-
-  }, []);
+    players.push(...initPlayers);
+  }
 
   players.map((player) => {
     player.cards = dealCards(player.cards);
     return player;
   });
 
-
-  console.log('UseEffect: ', deck, players, openCard);
-  console.log('init', initState);
-
   return (
     <div>
-      {players.map((player) => (
-        <div key={player.name}>
-          <PlayerName>{player.name}</PlayerName>
-          <div>
-            <CardHolder>
-              {player.cards.faceDownCards.map((card) => <SVGRenderer key={card.id} dispatch={dispatch} card={card} playerInfo={player} hand={'final'} faceDown={true} />)}
-            </CardHolder>
-            <MidHolder>
-              {player.cards.faceUpCards.firstSlot.map((card) => <SVGRenderer key={card.id} dispatch={dispatch} card={card} playerInfo={player} hand={'mid'} />)}
-              {player.cards.faceUpCards.secondSlot.map((card) => <SVGRenderer key={card.id} dispatch={dispatch} card={card} playerInfo={player} hand={'mid'} />)}
-              {player.cards.faceUpCards.thirdSlot.map((card) => <SVGRenderer key={card.id} dispatch={dispatch} card={card} playerInfo={player} hand={'mid'} />)}
-            </MidHolder>
-            <CardHolder>
-              {player.cards.handCards.map((card) => <SVGRenderer key={card.id} dispatch={dispatch} card={card} playerInfo={player} hand={'hand'} />)}
-            </CardHolder>
-            {player.isHuman ? (
-              <div>
-                <PlayerName>Deck</PlayerName>
-                <CardHolder>
-                  <SVGRenderer key={'deck'} faceDown={true} />
-                  <SVGRenderer key={'openCard'} card={openCard[0]} />
-                </CardHolder>
-              </div>
-            ) :
-              (null)
-            }
-          </div>
-        </div>
-      ))}
+      {(deck.length > 52 - parseInt(gameState.players) * 9) ?
+        <TitleText>Loading...</TitleText>
+        :
+        <GameRound players={players} deck={deck} playedCards={playedCards} />
+      }
+
     </div>
   );
 };

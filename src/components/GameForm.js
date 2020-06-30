@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const GameForm = ({ dispatch }) => {
   const [name, setName] = useState('');
   const [gamePlayers, setGamePlayers] = useState(2);
+  console.log('testtt');
 
   const handleSubmit = (e) => {
     e.preventDefault();

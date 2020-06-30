@@ -74,11 +74,12 @@ const cards = {
 }
 
 
-const SVGRenderer = ({ card, faceDown, playerInfo, hand, dispatch }) => {
+const SVGRenderer = ({ card, faceDown, playerInfo, hand, playCard }) => {
   let cardSVG;
   if (!faceDown && card) {
     cardSVG = card.suit[0].toUpperCase() + card.value;
   } else if (!faceDown && !card) {
+    console.log(card);
     cardSVG = 'JOKER1'
   } else {
     cardSVG = 'BACKR';
@@ -89,8 +90,7 @@ const SVGRenderer = ({ card, faceDown, playerInfo, hand, dispatch }) => {
       <CardHolder src={cards[cardSVG]} onClick={ () => {
         if (playerInfo.isHuman) {
           if (playerInfo.cards.handCards.length > 0 && hand === 'hand') {
-            console.log(card, playerInfo);
-            dispatch(card);
+            playCard(card, playerInfo.cards.handCards);
           }
         }
       }}

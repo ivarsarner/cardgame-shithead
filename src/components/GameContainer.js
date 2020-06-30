@@ -22,13 +22,12 @@ const initialState = { isActive: false, players: 0, name: '' };
 
 const GameContainer = () => {
   const [gameState, dispatch] = useReducer(gameReducer, initialState);
+  console.log('test');
 
   return (
     <>
       <BoardContainer>
-        <header>
-          <Headline>Shithead Cardgame</Headline>
-        </header>
+        <Headline>Shithead Cardgame</Headline>
         {!gameState.isActive ? (
           <GameForm dispatch={dispatch} />
         ) : (

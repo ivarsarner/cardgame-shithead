@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import GameBoard from './components/GameContainer';
+import GameContainer from './components/GameContainer';
 
-const App = () => <GameBoard />;
+const App = () => <GameContainer />;
 
 export default App;
